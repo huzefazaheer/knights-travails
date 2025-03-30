@@ -117,7 +117,7 @@ export const createLinkedList = function(value_ = null){
     }
 
     function toString(node = basenode, result= ''){
-        result = result + '(' + node.value + ') ' + '-> '
+        result = result + '(' + node.value  + ') ' + '-> '
         if(node.header == null){
             result = result + 'null'
             return result

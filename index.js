@@ -1,21 +1,21 @@
+import { Hashmap } from "./hashmap.js"
+
 let visitedNodes = [[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0]]
 let queue = []
 let path = {}
 
 function knightsTravails(startPos, endPos){
     queue.push(startPos)
-    let lastnode = undefined
 
     do{
         let node = queue.shift()
         if(visitedNodes[node[0]][node[1]] == 1) continue
         if (node[0] == endPos[0] && node[1] == endPos[1]){
             console.log("Found shortest path")
-            console.log(path, node)
-            findShortestPath(lastnode, node)
+            findShortestPath(node)
             break
         }
-        lastnode = knightMoves(node)
+        knightMoves(node)
     }while (queue.length > 0)
 }
 
@@ -65,11 +65,10 @@ function knightMoves(node){
         path[node].push([x-1,y-2])
     }
 
-    return node
 }
 
-function findShortestPath(lastNode, node){
-    console.log(lastNode, node)
+function findShortestPath(node){ 
+    console.log(path)
 }
 
 knightsTravails([0,0],[3,3])

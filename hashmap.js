@@ -30,11 +30,13 @@ export class Hashmap{
     }
 
     set(key, value){
+        key = key.toString()
         let index = this.hash(key)
+        value = value.toString()
         if(this.buckets[index] == null){
-            this.buckets[index] = createLinkedList({[key]: value})
+            this.buckets[index] = createLinkedList(value)
         }else {
-            this.buckets[index].append({[key]: value})
+            this.buckets[index].append(value)
         }
         this.itemCount = this.itemCount + 1
         if (this.itemCount > this.loadFactor * this.capacity){
@@ -44,9 +46,12 @@ export class Hashmap{
     }
 
     get(key){
+        key = key.toString()
+        
         let index = this.hash(key)
         try {
             let indexOfItem = this.buckets[index]
+            console.log("trying to find", key, "it is found in ", indexOfItem)
             return indexOfItem.at(indexOfItem.find(key))[key]
         } catch (error) {
             return null
@@ -98,7 +103,7 @@ export class Hashmap{
         for (let bucketindex in this.buckets){
             let bucket = this.buckets[bucketindex]
             if(bucket != null){
-                result = result + bucket.keytoString() + bucket.valuetoString() 
+                result = result + bucketindex + bucket.toString()
             }
         }
         return result
