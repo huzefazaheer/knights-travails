@@ -12,7 +12,7 @@ function knightsTravails(startPos, endPos){
         if(visitedNodes[node[0]][node[1]] == 1) continue
         if (node[0] == endPos[0] && node[1] == endPos[1]){
             console.log("Found shortest path")
-            findShortestPath(node)
+            findShortestPath(startPos, node, [node.toString()])
             break
         }
         knightMoves(node)
@@ -33,43 +33,58 @@ function knightMoves(node){
 
     if(x + 2 <= 7 && y + 1 <= 7){
         queue.push([x+2,y+1])
-        path[node].push([x+2,y+1])
+        path[node].push([x+2,y+1].toString())
     }
     if(x + 2 <= 7 && y - 1 >= 0){
         queue.push([x+2,y-1])
-        path[node].push([x+2,y-1])
+        path[node].push([x+2,y-1].toString())
     }
     if(x - 2 >= 0 && y + 1 <= 7){
         queue.push([x-2,y+1])
-        path[node].push([x-2,y+1])
+        path[node].push([x-2,y+1].toString())
     }
     if(x - 2 >= 0 && y - 1 >= 0){
         queue.push([x-2,y-1])
-        path[node].push([x-2,y-1])
+        path[node].push([x-2,y-1].toString())
     }
 
     if(x + 1 <= 7 && y + 2 <= 7){
         queue.push([x+1,y+2])
-        path[node].push([x+1,y+2])
+        path[node].push([x+1,y+2].toString())
     }
     if(x + 1 <= 7 && y - 2 >= 0){
         queue.push([x+1,y-2])
-        path[node].push([x+1,y-2])
+        path[node].push([x+1,y-2].toString())
     }
     if(x - 1 >= 0 && y + 2 <= 7){
         queue.push([x-1,y+2])
-        path[node].push([x-1,y+2])
+        path[node].push([x-1,y+2].toString())
     }
     if(x - 1 >= 0 && y - 2 >= 0){
         queue.push([x-1,y-2])
-        path[node].push([x-1,y-2])
+        path[node].push([x-1,y-2].toString())
     }
 
 }
 
-function findShortestPath(node){ 
-    console.log(path)
+function findShortestPath(startPos, node, result = [node]){ 
+
+    if (startPos.toString() == node){
+        console.log(result.length)
+        for(let i = result.length-1; i>= 0; i--){
+            console.log(result[i])
+        }
+        return
+    }
+
+    for(const key in path){
+        for(const item in path[key]){
+            if (path[key][item] == node){
+                result.push(key)
+                return findShortestPath(startPos, key, result)
+            }
+        }
+    }
 }
 
-knightsTravails([0,0],[3,3])
-// console.log(path)
+knightsTravails([0,0],[7,7])
