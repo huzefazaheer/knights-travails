@@ -5,9 +5,9 @@ class Node{
     }
 }
 
-export const createLinkedList = function(){
+export const createLinkedList = function(value_ = null){
 
-    let basenode = new Node(null)
+    let basenode = new Node(value_)
     let listsize = 0
 
     function append(val, node = basenode){
@@ -48,7 +48,8 @@ export const createLinkedList = function(){
     }
 
     function find(value, node = basenode, index = 0){
-        if(node.value == value){
+        let key = Object.keys(node.value)[0]
+        if(key == value){
             return index
         }else {
             if(node.header == null){
@@ -125,5 +126,24 @@ export const createLinkedList = function(){
         }
     }
 
-    return {toString, append, prepend, size, tail, head, pop, at, find, contains, insertAt, removeAt}
+    function keytoString(node = basenode, result= ''){
+        result = result + Object.keys(node.value)+ ', ' 
+        if(node.header == null){
+            return result
+        }else{
+            return valuetoString(node.header, result)
+        }
+    }
+
+    function valuetoString(node = basenode, result= ''){
+        let key = Object.keys(node.value)[0]
+        result = result + node.value[key] + ', '
+        if(node.header == null){
+            return result
+        }else{
+            return keytoString(node.header, result)
+        }
+    }
+
+    return {toString, append, prepend, size, tail, head, pop, at, find, contains, insertAt, removeAt, keytoString, valuetoString}
 }
